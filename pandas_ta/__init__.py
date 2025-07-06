@@ -10,7 +10,7 @@ import os.path
 dist = distribution("pandas_ta")
 try:
     # Normalize case for Windows systems
-    dist_loc = os.path.normcase(dist.locate_file("").read_text())
+    dist_loc = os.path.normcase(str(dist.locate_file("")))
     here = os.path.normcase(__file__)
     if not here.startswith(os.path.join(dist_loc, "pandas_ta")):
         # not installed, but there is another version that *is*
