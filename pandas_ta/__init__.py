@@ -3,22 +3,22 @@ name = "pandas_ta"
 .. moduleauthor:: Kevin Johnson
 """
 from importlib.util import find_spec
-from pkg_resources import get_distribution, DistributionNotFound
+from importlib.metadata import version, distribution, PackageNotFoundError
 import os.path
 
 
-_dist = get_distribution("pandas_ta")
+dist = distribution("pandas_ta")
 try:
     # Normalize case for Windows systems
-    dist_loc = os.path.normcase(_dist.location)
+    dist_loc = os.path.normcase(dist.locate_file("").read_text())
     here = os.path.normcase(__file__)
     if not here.startswith(os.path.join(dist_loc, "pandas_ta")):
         # not installed, but there is another version that *is*
-        raise DistributionNotFound
-except DistributionNotFound:
+        raise PackageNotFoundError
+except PackageNotFoundError:
     __version__ = "Please install this project with setup.py"
 
-version = __version__ = _dist.version
+version = __version__ = dist.version
 
 
 Imports = {
